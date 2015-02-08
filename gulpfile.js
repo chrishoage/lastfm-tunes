@@ -106,7 +106,6 @@ gulp.task('connect', function () {
     middleware: function (connect, opt) {
     	var proxy = function (localRequest, localResponse, next) {
     		var t = /(\.js|html|css|ico)|^\/$/gi
-    		console.log(localRequest.url)
     		if (!t.test(localRequest.url)) {
     			var parts = require('url').parse('http://' + localRequest.url.slice(1));
     			var options = {
