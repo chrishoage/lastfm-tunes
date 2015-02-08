@@ -1,0 +1,132 @@
+@import 'bourbon';
+
+* { box-sizing: border-box; }
+
+body {
+	font-size: 14px;
+	margin: 0;
+	padding: 0;
+	font-family: "Helvetica Neue";
+	line-height: 1.5;
+	font-weight: 200;
+	position: relative;
+}
+
+h2 {
+	font-size: 1.6em;
+	font-weight: 200;
+}
+
+h3 {
+	font-size: 1.2em;
+	font-weight: 200;
+}
+
+#app {
+	position: relative;
+}
+
+.album-arrow {
+	transition: all 500ms ease;
+}
+
+.album-container {
+	position: relative;
+	min-height: 393px; //need this but can't have it.
+}
+
+.album-row {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+
+}
+
+.album-link {
+	display: inline-block;
+	position: relative;
+}
+
+.album-detail {
+	width: 100%;
+	height: 0;
+	overflow: hidden;
+	transition: height 500ms ease;
+	position: relative;
+	box-shadow: 0 0 30px 10px rgba(0, 0, 0, 0.15);
+	//maybe one day
+	// border-bottom: 1px solid rgba(221, 221, 221, 0.55);
+	// border-top: 1px solid rgba(221, 221, 221, 0.55);
+
+	h2, h3 {
+		margin: 0 0 0px 20px;
+	}
+
+	ol {
+		margin: 0;
+		list-style: decimal outside;
+	}
+
+	.album-detail-container {
+		padding: 20px;
+		width: 100%;
+		overflow: hidden;
+	}
+
+	.col-wrap {
+
+		float: left;
+		width: 72%;
+
+		@media only screen  and (min-width : 768px) {
+			column-count: 2;
+		}
+
+	}
+
+	.album-info {
+		@include clearfix;
+		margin: 10px 0 30px 0;
+	}
+
+	.album-art-container {
+		float: right;
+		width: 25%;
+		max-width: 250px;
+		max-height: 250px;
+		img {
+
+			width: 100%;
+			height: 100%;
+			box-shadow: 0px 0px 100px 0px rgba(0,0,0,0.45);
+		}
+	}
+
+}
+
+$opacityDuration: 250ms;
+
+.same-row-leave {
+	opacity: 1;
+	transition: opacity $opacityDuration ease;
+	position: absolute;
+	box-shadow: 0 0 30px 10px rgba(0, 0, 0, 0);
+}
+
+.same-row-leave-active {
+	opacity: 0;
+	box-shadow: 0 0 30px 10px rgba(0, 0, 0, 0);
+}
+
+.same-row-enter {
+	position: absolute;
+	opacity: 0;
+	transition: opacity $opacityDuration ease,
+							box-shadow $opacityDuration ease;
+	box-shadow: 0 0 30px 10px rgba(0, 0, 0, 0);
+}
+
+.same-row-enter-active {
+	opacity: 1;
+	box-shadow: 0 0 30px 10px rgba(0, 0, 0, 0.15);
+}
