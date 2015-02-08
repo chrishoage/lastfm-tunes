@@ -16,9 +16,9 @@ const Albums = React.createClass({
   mixins: [ Navigation ],
 
   statics: {
-  	load() {
-  		return TopAlbums.load('ub3rgeek')
-  	}
+    load() {
+      return TopAlbums.load('ub3rgeek')
+    }
   },
 
   getInitialState() {
@@ -36,7 +36,7 @@ const Albums = React.createClass({
       this.currentCoords(this.props.params.id)
     })
     if (this.props.params.id)
-    	this.currentCoords(this.props.params.id)
+      this.currentCoords(this.props.params.id)
   },
 
   componentWillReceiveProps(newProps) {
@@ -46,8 +46,6 @@ const Albums = React.createClass({
       this.currentCoords(newProps.params.id)
     }
   },
-
-
 
   calcAlbumsPerRow() {
     var fullWidth = IMAGE_SIZE + (IMAGE_MARGIN * 2)
@@ -89,15 +87,12 @@ const Albums = React.createClass({
   },
 
   currentCoords(ref) {
-  	if (this.refs && this.refs[ref]) {
-  		let left = this.refs[ref].getDOMNode().offsetLeft
-  		let top = this.refs[ref].getDOMNode().offsetTop
-  		var center = ((IMAGE_SIZE + (IMAGE_MARGIN * 2)) / 2)
-  		let arrowLeft = left
-  		let arrowTop = top + (IMAGE_SIZE + (IMAGE_MARGIN)) - 5
-  		console.log({left, top, arrowLeft, arrowTop})
-  		this.setState({arrowLeft, arrowTop})
-  	}
+    if (this.refs && this.refs[ref]) {
+      let left = this.refs[ref].getDOMNode().offsetLeft
+      let top = this.refs[ref].getDOMNode().offsetTop
+      let arrowLeft = left
+      this.setState({arrowLeft})
+    }
 
   },
 
@@ -108,21 +103,21 @@ const Albums = React.createClass({
     var hadCurrent = _.find(row, {id: lastChildId})
     var wasCurrent = (!currentId && hadCurrent)
     var sameRow = hasCurrent && hadCurrent
-    var arrowPos = {top: this.state.arrowTop, left: this.state.arrowLeft}
+    var arrowPos = {left: this.state.arrowLeft}
     var containerClass = sameRow ? 'album-container' : null
     return (
       <div key={index}>
         <div className="album-row">{row.map(this.renderAlbum)}</div>
-				{hasCurrent ? <Arrow key={`arrow${index}`} id={currentId} pos={arrowPos} /> : null}
+        {hasCurrent ? <Arrow id={currentId} pos={arrowPos} /> : null}
         {hasCurrent ? <CSSTransitionGroup ref="container"
-        																	transitionName="same-row"
-        																	className={containerClass}
-        																	component="div" >
-        								<RouteHandler params={this.props.params} key={currentId} />
-        							</CSSTransitionGroup>
-        						: null}
+                                          transitionName="same-row"
+                                          className={containerClass}
+                                          component="div" >
+                        <RouteHandler params={this.props.params} key={currentId} />
+                      </CSSTransitionGroup>
+                    : null}
         {((hadCurrent && !sameRow) || wasCurrent) ?
-        	<Album params={{id: lastChildId}} old={true} key={lastChildId} /> : null}
+          <Album params={{id: lastChildId}} old={true} key={lastChildId} /> : null}
       </div>
     )
   },

@@ -10,6 +10,7 @@ const Arrow = React.createClass({
       borderRight: '10px solid transparent',
       borderBottom: `10px solid ${Colors.get(this.props.id).bg}`,
       left: this.props.pos.left,
+      display: this.props.pos.left > 0 ? 'block' : 'none',
       top: 0,
       marginLeft: 40,
       position: 'relative',
