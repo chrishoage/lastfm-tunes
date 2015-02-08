@@ -25,8 +25,7 @@ const Albums = React.createClass({
     return {
       containerWidth: window.innerWidth,
       lastChildId: null,
-      arrowLeft: -99,
-      arrowTop: -99
+      arrowLeft: -99
     }
   },
 
