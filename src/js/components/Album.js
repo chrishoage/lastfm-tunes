@@ -55,7 +55,8 @@ const Album = React.createClass({
     var styles = {
       background: bg,
       color: fg,
-      height: this.state.height
+      height: this.state.height,
+      boxShadow: this.state.height ? '0 0 30px 10px rgba(0, 0, 0, 0.15)' : '0 0 30px 10px rgba(0, 0, 0, 0.0)'
     }
 
     var tracks = album.tracks.track.filter((track) => track.mbid ).map((track, index) => {

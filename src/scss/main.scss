@@ -22,8 +22,22 @@ h3 {
 	font-weight: 200;
 }
 
-#app {
-	position: relative;
+.wrapper {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.header, .main, .playlist, .footer {
+  flex: 1 100%;
+}
+
+/* Large screens */
+@media all and (min-width: 800px) {
+  .main { flex: 2 0px; }
+
+  .playlists { order: 1; }
+  .main      { order: 2; }
+  .footer    { order: 4; }
 }
 
 .album-arrow {
@@ -51,9 +65,9 @@ h3 {
 	width: 100%;
 	height: 0;
 	overflow: hidden;
-	transition: height 500ms ease;
+	transition: all 500ms ease;
 	position: relative;
-	box-shadow: 0 0 30px 10px rgba(0, 0, 0, 0.15);
+	//box-shadow: 0 0 30px 10px rgba(0, 0, 0, 0.15);
 	//maybe one day
 	// border-bottom: 1px solid rgba(221, 221, 221, 0.55);
 	// border-top: 1px solid rgba(221, 221, 221, 0.55);
@@ -129,4 +143,8 @@ $opacityDuration: 250ms;
 .same-row-enter-active {
 	opacity: 1;
 	box-shadow: 0 0 30px 10px rgba(0, 0, 0, 0.15);
+}
+
+.playlists {
+  display: flex;
 }

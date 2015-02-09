@@ -1,13 +1,17 @@
 import Promise from 'bluebird'
 import React from 'react'
 import Router from 'react-router'
+import Layout from './components/Layout'
 import Albums from './components/Albums'
 import Album from './components/Album'
-const { Route } = Router
+const { Route, DefaultRoute } = Router
 
 const routes = (
-  <Route name="albums" path="/" handler={Albums} ignoreScrollBehavior={true} addHandlerKey={true} >
-    <Route name="album" path="album/:id" handler={Album} addHandlerKey={true} />
+  <Route name="index" path="/" handler={Layout} ignoreScrollBehavior={true} >
+    <Route name="albums" path="albums/" handler={Albums}>
+      <Route name="album" path=":id" handler={Album} addHandlerKey={true} />
+    </Route>
+    <DefaultRoute handler={Albums}/>
   </Route>
 )
 

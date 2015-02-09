@@ -23,27 +23,56 @@ const Albums = React.createClass({
 
   getInitialState() {
     return {
-      containerWidth: window.innerWidth,
+      albums: TopAlbums.get('ub3rgeek'),
+      containerWidth: this.props.width,
       lastChildId: null,
       arrowLeft: -99
     }
   },
 
-  componentDidMount() {
-    window.addEventListener('resize', () => {
-      this.setState({ containerWidth: window.innerWidth })
-      this.currentCoords(this.props.params.id)
+  setUIState(props) {
+    let { arrowLeft } = this.currentAlbumPos(props.params.id)
+    let containerWidth = this.getWidth()
+
+    this.setState({
+      containerWidth,
+      arrowLeft
     })
-    if (this.props.params.id)
-      this.currentCoords(this.props.params.id)
+  },
+
+  handleResize() {
+    this.setUIState(this.props)
+  },
+
+  componentDidMount() {
+    this.setUIState(this.props)
+    window.addEventListener('resize', this.handleResize)
+  },
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize)
   },
 
   componentWillReceiveProps(newProps) {
     var lastChildId = this.props.params.id
     if (newProps.params.id !== lastChildId) {
-      this.setState({ lastChildId })
-      this.currentCoords(newProps.params.id)
+      let { arrowLeft } = this.currentAlbumPos(newProps.params.id)
+      this.setState({ lastChildId, arrowLeft })
     }
+  },
+
+  getWidth() {
+    return this.refs.container.getDOMNode().clientWidth
+  },
+
+  currentAlbumPos(ref) {
+    let arrowLeft = 0
+    if (ref && this.refs && this.refs[ref]) {
+      let offset = this.refs.container.getDOMNode().offsetLeft
+      let left = this.refs[ref].getDOMNode().offsetLeft - offset
+      arrowLeft = left
+    }
+    return {arrowLeft}
   },
 
   calcAlbumsPerRow() {
@@ -53,8 +82,7 @@ const Albums = React.createClass({
 
   calcRows() {
     var albumsPerRow = this.calcAlbumsPerRow()
-    return TopAlbums.get('ub3rgeek').filter((album) => album.mbid)
-    .reduce((rows, album, index) => {
+    return _.filter(this.state.albums, 'mbid').reduce((rows, album, index) => {
       if (index % albumsPerRow === 0)
         rows.push([])
 
@@ -85,16 +113,6 @@ const Albums = React.createClass({
     )
   },
 
-  currentCoords(ref) {
-    if (this.refs && this.refs[ref]) {
-      let left = this.refs[ref].getDOMNode().offsetLeft
-      let top = this.refs[ref].getDOMNode().offsetTop
-      let arrowLeft = left
-      this.setState({arrowLeft})
-    }
-
-  },
-
   renderRow(row, index) {
     var currentId = this.props.params.id
     var { lastChildId } = this.state
@@ -123,7 +141,7 @@ const Albums = React.createClass({
 
   render() {
     var releases = this.calcRows().map(this.renderRow)
-    return <div>{releases}</div>
+    return <div className="main" ref="container">{releases}</div>
   }
 })
 
