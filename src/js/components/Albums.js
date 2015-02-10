@@ -134,7 +134,7 @@ const Albums = React.createClass({
                       </CSSTransitionGroup>
                     : null}
         {((hadCurrent && !sameRow) || wasCurrent) ?
-          <Album params={{id: lastChildId}} old={true} key={lastChildId} /> : null}
+          <Album ref="container" params={{id: lastChildId}} old={true} key={lastChildId} /> : null}
       </div>
     )
   },
