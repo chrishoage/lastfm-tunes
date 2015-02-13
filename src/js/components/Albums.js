@@ -24,7 +24,6 @@ const Albums = React.createClass({
   getInitialState() {
     return {
       albums: TopAlbums.get('ub3rgeek'),
-      containerWidth: this.props.width,
       lastChildId: null,
       arrowLeft: -99
     }
@@ -32,10 +31,8 @@ const Albums = React.createClass({
 
   setUIState(props) {
     let { arrowLeft } = this.currentAlbumPos(props.params.id)
-    let containerWidth = this.getWidth()
 
     this.setState({
-      containerWidth,
       arrowLeft
     })
   },
@@ -54,15 +51,17 @@ const Albums = React.createClass({
   },
 
   componentWillReceiveProps(newProps) {
-    var lastChildId = this.props.params.id
+    let lastChildId = this.props.params.id
+
     if (newProps.params.id !== lastChildId) {
       let { arrowLeft } = this.currentAlbumPos(newProps.params.id)
+
       this.setState({ lastChildId, arrowLeft })
     }
-  },
 
-  getWidth() {
-    return this.refs.container.getDOMNode().clientWidth
+    if (newProps.width !== this.props.width)
+      this.setUIState(newProps)
+
   },
 
   currentAlbumPos(ref) {
@@ -77,7 +76,7 @@ const Albums = React.createClass({
 
   calcAlbumsPerRow() {
     var fullWidth = IMAGE_SIZE + (IMAGE_MARGIN * 2)
-    return Math.floor(this.state.containerWidth / fullWidth)
+    return Math.floor(this.props.width / fullWidth)
   },
 
   calcRows() {
@@ -141,7 +140,7 @@ const Albums = React.createClass({
 
   render() {
     var releases = this.calcRows().map(this.renderRow)
-    return <div className="main" ref="container">{releases}</div>
+    return <div style={{width: this.props.width}} className="main" ref="container">{releases}</div>
   }
 })
 

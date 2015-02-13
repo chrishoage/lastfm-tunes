@@ -10,29 +10,74 @@ const Layout = React.createClass({
   mixins: [ Navigation ],
 
   getInitialState() {
-    let w = window.innerWidth
+    let widths = this.getWidth(200)
+    let styles = {
+      cursor: 'default'
+    }
+    let resizing = false
+    return {widths, styles, resizing}
+  },
+
+  getWidth(sidebarWidth = this.state.widths.sidebar) {
+    let w = document.body.clientWidth
     return {
-      sidebarWidth: w * 0.2,
-      mainWidth: w * 0.8
+      sidebar: sidebarWidth,
+      main: w - sidebarWidth
     }
   },
 
-  getWidth() {
-    return this.refs.container.getDOMNode().clientWidth
+  componentDidMount() {
+    this.setState({widths: this.getWidth()})
+    window.addEventListener('resize', () => {
+      this.setState({widths: this.getWidth()})
+    })
   },
 
-  componentDidMount() {
-    this.setState({mainWidth: this.getWidth()})
-    window.addEventListener('resize', () => {
-      this.setState({mainWidth: this.getWidth()})
-    })
+  sidebarRight() {
+    let sidebar = this.refs.sidebar.getDOMNode()
+    return sidebar.offsetLeft + sidebar.offsetWidth
+  },
+
+  mouseMove(event) {
+    if (this.state.resizing) {
+      let width = this.refs.sidebar.getDOMNode().offsetWidth
+      let newWidth = event.clientX
+      let widths = this.getWidth(newWidth)
+      this.setState({widths})
+    } else {
+      if (this.sidebarRight() === event.clientX) {
+        this.setState({styles: {
+          cursor: 'col-resize'
+        }})
+      } else {
+        this.setState({styles: {
+          cursor: 'default'
+        }})
+      }
+    }
+
+  },
+
+  mouseDown() {
+    if (this.sidebarRight() !== event.clientX) return
+    this.setState({resizing: true}, ()=> console.log('resize!', this.state))
+
+  },
+
+  mouseUp() {
+    if (!this.state.resizing) return
+    this.setState({resizing: false, widths: this.getWidth()}, () => console.log('done!', this.state))
   },
 
   render() {
     return (
-      <div className="wrapper">
-        <Sidebar width={this.state.sidebarWidth} />
-        <RouteHandler ref="container" width={this.state.mainWidth} params={this.props.params} />
+      <div style={this.state.styles}
+           className="wrapper"
+           onMouseMove={this.mouseMove}
+           onMouseDown={this.mouseDown}
+           onMouseUp={this.mouseUp}>
+        <Sidebar ref="sidebar" width={this.state.widths.sidebar} />
+        <RouteHandler ref="container" width={this.state.widths.main} params={this.props.params} />
       </div>
     );
   }

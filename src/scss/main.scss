@@ -27,18 +27,6 @@ h3 {
   flex-flow: row wrap;
 }
 
-.header, .main, .playlist, .footer {
-  flex: 1 100%;
-}
-
-/* Large screens */
-@media all and (min-width: 800px) {
-  .main { flex: 2 0px; }
-
-  .playlists { order: 1; }
-  .main      { order: 2; }
-  .footer    { order: 4; }
-}
 
 .album-arrow {
 	transition: all 500ms ease;
@@ -147,4 +135,5 @@ $opacityDuration: 250ms;
 
 .playlists {
   display: flex;
+  background-color: #EEE;
 }
