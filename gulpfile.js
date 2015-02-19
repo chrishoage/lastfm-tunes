@@ -1,7 +1,7 @@
 var gulp       	= require('gulp');
 var browserify 	= require('browserify');
 var watchify   	= require('watchify');
-var to5ify      = require("6to5ify");
+var babelify      = require("babelify");
 var connect    	= require('gulp-connect');
 var vinylPaths 	= require('vinyl-paths');
 var source     	= require('vinyl-source-stream');
@@ -69,7 +69,7 @@ gulp.task('scripts', function () {
     entries: [conf.entry],
     debug: !isProd
   })
-  .transform(to5ify);
+  .transform(babelify);
 
   var bundlee = function() {
     return bundler
