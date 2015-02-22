@@ -2,11 +2,12 @@ import React from 'react/addons'
 const { CSSTransitionGroup } = React.addons
 import { Link, RouteHandler, Navigation } from 'react-router'
 import _ from 'lodash'
-import Colors from '../stores/Colors'
-import TopAlbums from '../stores/TopAlbums'
-import Arrow  from'./Arrow'
-import Album from './Album'
+import Colors from 'stores/Colors'
+import TopAlbums from 'stores/TopAlbums'
+import Arrow  from'components/Arrow'
+import Album from 'components/Album'
 
+import './albums.scss'
 
 const IMAGE_SIZE = 100
 const IMAGE_MARGIN = 10

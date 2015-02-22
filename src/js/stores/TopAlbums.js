@@ -1,5 +1,5 @@
-import requestLastFM from '../utils/requestLastFM'
-import createStore from '../utils/createStore'
+import requestLastFM from 'utils/requestLastFM'
+import createStore from 'utils/createStore'
 
 const TopAlbums = createStore((user) =>
                              requestLastFM({method: 'library.getalbums'})

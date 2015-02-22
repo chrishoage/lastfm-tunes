@@ -2,8 +2,10 @@ import React from 'react/addons'
 const { CSSTransitionGroup } = React.addons
 import { Link, RouteHandler, Navigation } from 'react-router'
 
-import Sidebar from './Sidebar'
-import Albums from './Albums'
+import Sidebar from 'components/Sidebar'
+import Albums from 'components/Albums'
+
+import './layout.scss'
 
 const Layout = React.createClass({
 

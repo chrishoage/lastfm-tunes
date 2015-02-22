@@ -1,0 +1,20 @@
+.album-arrow {
+  transition: all 500ms ease;
+}
+
+.album-container {
+  position: relative;
+  min-height: 393px; //need this but can't have it.
+}
+
+.album-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+
+.album-link {
+  display: inline-block;
+  position: relative;
+}

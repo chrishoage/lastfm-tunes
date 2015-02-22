@@ -3,9 +3,10 @@ import Promise from 'bluebird'
 
 const { CSSTransitionGroup } = React.addons
 
-import AlbumsStore from '../stores/Albums'
-import Colors from '../stores/Colors'
+import AlbumsStore from 'stores/Albums'
+import Colors from 'stores/Colors'
 
+import './album.scss'
 
 const Album = React.createClass({
 

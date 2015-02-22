@@ -1,8 +1,8 @@
 import Promise from 'bluebird'
-import Colibri from '../libs/colibri'
+import Colibri from 'libs/colibri'
 import Color from 'color'
-import AlbumsStore from './Albums'
-import createStore from '../utils/createStore'
+import AlbumsStore from 'stores/Albums'
+import createStore from 'utils/createStore'
 import url from 'url'
 
 const Colors = createStore((id) => {

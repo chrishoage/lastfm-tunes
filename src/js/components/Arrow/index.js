@@ -1,5 +1,5 @@
 import React from 'react'
-import Colors from '../stores/Colors'
+import Colors from 'stores/Colors'
 
 const Arrow = React.createClass({
   render() {

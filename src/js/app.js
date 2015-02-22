@@ -1,9 +1,9 @@
 import Promise from 'bluebird'
 import React from 'react'
 import Router from 'react-router'
-import Layout from './components/Layout'
-import Albums from './components/Albums'
-import Album from './components/Album'
+import Layout from 'components/Layout'
+import Albums from 'components/Albums'
+import Album from 'components/Album'
 const { Route, DefaultRoute } = Router
 
 const routes = (

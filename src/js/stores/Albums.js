@@ -1,5 +1,5 @@
-import requestLastFM from '../utils/requestLastFM'
-import createStore from '../utils/createStore'
+import requestLastFM from 'utils/requestLastFM'
+import createStore from 'utils/createStore'
 
 const Albums = createStore((id) =>
                              requestLastFM({method: 'album.getinfo', mbid: id})

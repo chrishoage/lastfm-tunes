@@ -1,6 +1,8 @@
 import React from 'react/addons'
 const { CSSTransitionGroup } = React.addons
 
+import './sidebar.scss'
+
 const Sidebar = React.createClass({
 
   render() {
