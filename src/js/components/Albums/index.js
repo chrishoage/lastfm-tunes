@@ -1,5 +1,5 @@
 import React from 'react/addons'
-const { CSSTransitionGroup } = React.addons
+const { CSSTransitionGroup, PureRenderMixin } = React.addons
 import { Link, RouteHandler, Navigation } from 'react-router'
 import _ from 'lodash'
 import Colors from 'stores/Colors'
@@ -14,7 +14,7 @@ const IMAGE_MARGIN = 10
 
 const Albums = React.createClass({
 
-  mixins: [ Navigation ],
+  mixins: [ Navigation, PureRenderMixin ],
 
   statics: {
     load() {

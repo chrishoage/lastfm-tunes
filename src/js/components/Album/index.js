@@ -1,7 +1,7 @@
 import React from 'react/addons'
 import Promise from 'bluebird'
 
-const { CSSTransitionGroup } = React.addons
+const { CSSTransitionGroup, PureRenderMixin } = React.addons
 
 import AlbumsStore from 'stores/Albums'
 import Colors from 'stores/Colors'
@@ -9,6 +9,8 @@ import Colors from 'stores/Colors'
 import './album.scss'
 
 const Album = React.createClass({
+
+  mixins: [ PureRenderMixin ],
 
   statics: {
     load(params) {

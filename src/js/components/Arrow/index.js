@@ -1,7 +1,12 @@
-import React from 'react'
+import React from 'react/addons'
 import Colors from 'stores/Colors'
 
+const { PureRenderMixin } = React.addons
+
 const Arrow = React.createClass({
+
+  mixins: [ PureRenderMixin ],
+
   render() {
     var styles = {
       width: 0,

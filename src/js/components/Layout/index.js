@@ -1,5 +1,5 @@
 import React from 'react/addons'
-const { CSSTransitionGroup } = React.addons
+const { CSSTransitionGroup, PureRenderMixin } = React.addons
 import { Link, RouteHandler, Navigation } from 'react-router'
 
 import Sidebar from 'components/Sidebar'
@@ -9,7 +9,7 @@ import './layout.scss'
 
 const Layout = React.createClass({
 
-  mixins: [ Navigation ],
+  mixins: [ Navigation, PureRenderMixin ],
 
   getInitialState() {
     let widths = this.getWidth(200)
@@ -57,18 +57,17 @@ const Layout = React.createClass({
         }})
       }
     }
-
   },
 
   mouseDown() {
     if (this.sidebarRight() !== event.clientX) return
-    this.setState({resizing: true}, ()=> console.log('resize!', this.state))
+    this.setState({resizing: true})
 
   },
 
   mouseUp() {
     if (!this.state.resizing) return
-    this.setState({resizing: false, widths: this.getWidth()}, () => console.log('done!', this.state))
+    this.setState({resizing: false, widths: this.getWidth()})
   },
 
   render() {

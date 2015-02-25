@@ -1,9 +1,11 @@
 import React from 'react/addons'
-const { CSSTransitionGroup } = React.addons
+const { PureRenderMixin } = React.addons
 
 import './sidebar.scss'
 
 const Sidebar = React.createClass({
+
+  mixins: [ PureRenderMixin ],
 
   render() {
     let styles = {
