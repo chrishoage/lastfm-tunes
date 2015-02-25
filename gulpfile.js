@@ -63,23 +63,25 @@ gulp.task('scripts', function () {
   .transform(sassify, conf.sassify);
 
   var bundlee = function() {
-    return bundler
+    var start = Date.now()
+    var b = bundler
       .bundle()
       .pipe(source('bundle.js'))
       .pipe(gulp.dest(conf.dist + 'js'))
       .pipe(connect.reload())
       .on('error', gutil.log);
+    gutil.log('Finished', "'" + gutil.colors.cyan('watchify') + "'", 'after', gutil.colors.magenta(Date.now() - start + 'ms'))
+    return b
   };
 
   if (!isProd) {
     bundler = watchify(bundler);
     bundler.on('update', function (files) {
-      gutil.log('Watchify Update', gutil.colors.magenta(files.map(function (file) {
+      gutil.log('Starting', "'" + gutil.colors.cyan('watchify') + "'", gutil.colors.magenta(files.map(function (file) {
         return file.replace(__dirname, '')
       }).join(', ')))
       bundlee(files);
-
-    })
+    });
   }
 
   return bundlee();
