@@ -93,29 +93,8 @@ gulp.task('connect', function () {
     port: 9000,
     livereload: true,
     middleware: function (connect, opt) {
-      var proxy = function (localRequest, localResponse, next) {
-        var t = /(\.js|html|css|ico)|^\/$/gi
-        if (!t.test(localRequest.url)) {
-          var parts = require('url').parse('http://' + localRequest.url.slice(1));
-          var options = {
-            host: parts.host,
-            path: parts.path
-          };
-          require('http').request(options, function (remoteRequest) {
-            if (remoteRequest.statusCode === 200) {
-              localResponse.writeHead(200, {
-                  'Content-Type': remoteRequest.headers['content-type']
-              });
-              remoteRequest.pipe(localResponse);
-            } else {
-              localResponse.writeHead(remoteRequest.statusCode);
-              localResponse.end();
-            }
-          }).end();
-        } else {
-          next();
-        }
-      };
+      var Proxy = require('gulp-connect-proxy');
+      var proxy = new Proxy(opt);
       return [proxy];
     }
   });
